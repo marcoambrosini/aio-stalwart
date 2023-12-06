@@ -10,7 +10,7 @@ while ! [ -f "/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/m
     sleep 5
 done
 
-mkdir -p /opt/stalwart-mail/etc/certs
+mkdir -p "/opt/stalwart-mail/etc/certs/mail.$NC_DOMAIN"
 rm -f "/opt/stalwart-mail/etc/certs/mail.$NC_DOMAIN/fullchain.pem"
 rm -f "/opt/stalwart-mail/etc/certs/mail.$NC_DOMAIN/privkey.pem"
 cp "/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mail.$NC_DOMAIN/mail.$NC_DOMAIN.crt" "/opt/stalwart-mail/etc/certs/mail.$NC_DOMAIN/fullchain.pem"
