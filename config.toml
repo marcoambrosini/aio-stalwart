@@ -1,0 +1,32 @@
+server.http.use-x-forwarded = true
+
+[server.listener]
+https.bind = "[::]:10003"
+https.protocol = "http"
+https.tls.implicit = true
+imaps.bind = "[::]:993"
+imaps.protocol = "imap"
+imaps.tls.implicit = true
+sieve.bind = "[::]:4190"
+sieve.protocol = "managesieve"
+smtp.bind = "[::]:25"
+smtp.protocol = "smtp"
+submissions.bind = "[::]:465"
+submissions.protocol = "smtp"
+submissions.tls.implicit = true
+
+[tracer.stdout]
+ansi = true
+enable = true
+level = "trace"
+type = "stdout"
+
+[lookup.nextcloud-aio]
+domain = "%{env:MAIL_DOMAIN}%"
+hostname = "mail.%{env:MAIL_DOMAIN}%"
+
+
+[certificate.nextcloud-aio]
+cert = "%{file:/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/%{cfg:lookup.nextcloud-aio.domain}%/%{cfg:lookup.nextcloud-aio.domain}%.crt}%"
+default = true
+private-key = "%{file:/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/%{cfg:lookup.nextcloud-aio.domain}%/%{cfg:lookup.nextcloud-aio.domain}%.key}%"
