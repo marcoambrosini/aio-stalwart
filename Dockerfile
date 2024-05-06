@@ -1,5 +1,5 @@
 # From https://github.com/stalwartlabs/mail-server/blob/main/Dockerfile
-FROM stalwartlabs/mail-server:v0.7.2
+FROM stalwartlabs/mail-server:v0.7.3
 
 COPY --chmod=775 start.sh /start.sh
 
