@@ -27,6 +27,6 @@ hostname = "mail.%{env:MAIL_DOMAIN}%"
 
 
 [certificate.nextcloud-aio]
-cert = "%{file:/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/%{cfg:lookup.nextcloud-aio.domain}%/%{cfg:lookup.nextcloud-aio.domain}%.crt}%"
+cert = "%{file:/opt/aio-certs/fullchain.crt}%"
 default = true
-private-key = "%{file:/caddy/caddy/certificates/acme-v02.api.letsencrypt.org-directory/%{cfg:lookup.nextcloud-aio.domain}%/%{cfg:lookup.nextcloud-aio.domain}%.key}%"
+cert = "%{file:/opt/aio-certs/privkey.key}%"
