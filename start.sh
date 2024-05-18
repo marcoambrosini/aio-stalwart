@@ -12,7 +12,7 @@ if [ -f "$AIO_LOCK" ]; then
         exit 1
     fi
 else
-    echo "$DATA_VERSION" > "$DATA_VERSION"
+    echo "$DATA_VERSION" > "$AIO_LOCK"
 fi
 
 # Get cert
