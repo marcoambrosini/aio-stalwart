@@ -29,4 +29,4 @@ hostname = "mail.%{env:MAIL_DOMAIN}%"
 [certificate.nextcloud-aio]
 cert = "%{file:/opt/aio-certs/fullchain.crt}%"
 default = true
-cert = "%{file:/opt/aio-certs/privkey.key}%"
+private-key = "%{file:/opt/aio-certs/privkey.key}%"
