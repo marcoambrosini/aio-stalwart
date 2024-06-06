@@ -64,4 +64,4 @@ private-key = "%{file:/opt/aio-certs/privkey.key}%"
 
 [authentication.fallback-admin]
 user = "admin"
-secret = "%{env:ADMIN_SECRET}%"
+secret = "%{env:STALWART_USER_PASS}%"
