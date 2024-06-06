@@ -1,32 +1,67 @@
-server.http.use-x-forwarded = true
+# https://github.com/stalwartlabs/mail-server/blob/main/resources/config/config.toml
 
-[server.listener]
-https.bind = "[::]:10003"
-https.protocol = "http"
-https.tls.implicit = true
-imaps.bind = "[::]:993"
-imaps.protocol = "imap"
-imaps.tls.implicit = true
-sieve.bind = "[::]:4190"
-sieve.protocol = "managesieve"
-smtp.bind = "[::]:25"
-smtp.protocol = "smtp"
-submissions.bind = "[::]:465"
-submissions.protocol = "smtp"
-submissions.tls.implicit = true
+[server.listener."smtp"]
+bind = ["[::]:25"]
+protocol = "smtp"
 
-[tracer.stdout]
-ansi = true
-enable = true
+[server.listener."submissions"]
+bind = ["[::]:465"]
+protocol = "smtp"
+tls.implicit = true
+
+[server.listener."imaptls"]
+bind = ["[::]:993"]
+protocol = "imap"
+tls.implicit = true
+
+[server.listener."sieve"]
+bind = ["[::]:4190"]
+protocol = "managesieve"
+
+[server.listener."caddy-aio"]
+protocol = "http"
+bind = ["[::]:10003"]
+
+[storage]
+data = "rocksdb"
+fts = "rocksdb"
+blob = "rocksdb"
+lookup = "rocksdb"
+directory = "internal"
+
+[store."rocksdb"]
+type = "rocksdb"
+path = "/opt/stalwart-mail/data"
+compression = "lz4"
+
+[directory."internal"]
+type = "internal"
+store = "rocksdb"
+
+[tracer."log"]
+type = "log"
 level = "trace"
+path = "/var/log"
+prefix = "stalwart.log"
+rotate = "daily"
+ansi = false
+enable = true
+
+[tracer."stdout"]
 type = "stdout"
+level = "info"
+ansi = false
+enable = true
 
-[lookup.nextcloud-aio]
-domain = "%{env:MAIL_DOMAIN}%"
-hostname = "mail.%{env:MAIL_DOMAIN}%"
-
+[lookup."nextcloud-aio"]
+domain = "%{env:NC_DOMAIN}%"
+hostname = "mail.%{env:NC_DOMAIN}%"
 
 [certificate.nextcloud-aio]
 cert = "%{file:/opt/aio-certs/fullchain.crt}%"
 default = true
-cert = "%{file:/opt/aio-certs/privkey.key}%"
+private-key = "%{file:/opt/aio-certs/privkey.key}%"
+
+[authentication.fallback-admin]
+user = "admin"
+secret = "%{env:STALWART_USER_PASS}%"
