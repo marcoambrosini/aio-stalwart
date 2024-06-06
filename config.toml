@@ -38,6 +38,15 @@ compression = "lz4"
 type = "internal"
 store = "rocksdb"
 
+[tracer."log"]
+type = "log"
+level = "trace"
+path = "/var/log"
+prefix = "stalwart.log"
+rotate = "daily"
+ansi = false
+enable = true
+
 [tracer."stdout"]
 type = "stdout"
 level = "info"
